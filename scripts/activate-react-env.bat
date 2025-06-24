@@ -1,10 +1,10 @@
 @echo off
-REM AI Base Project - React Environment Activation Script
-REM Version-agnostic script for React development environment activation
+REM AI Base Project - Full Stack Development Environment Activation
+REM Tech Stack: Python 3.12+ | ReactJS 19.1 | FastAPI | Bootstrap 5.3 | SQLite/PostgreSQL/MongoDB
 
 echo.
 echo ========================================
-echo   AI Base - React Development
+echo   AI Base - Full Stack Development
 echo ========================================
 echo.
 
@@ -21,27 +21,55 @@ if "%CURRENT_DIR%"=="v2" set "VERSION=v2"
 if "%CURRENT_DIR%"=="v3" set "VERSION=v3"
 
 echo Project Version: %VERSION%
-echo Node.js: 
-node --version 2>nul || echo Not found
-echo npm: 
+echo.
+echo Tech Stack Status:
+echo   Python: 
+python --version 2>nul || echo Not found - Install Python 3.12+
+echo   Node.js: 
+node --version 2>nul || echo Not found - Install Node.js 22.16+
+echo   npm: 
 npm --version 2>nul || echo Not found
 echo.
-echo Available Commands:
-echo   npm start       - Start development server
-echo   npm test        - Run tests  
-echo   npm run build   - Build for production
-echo   npm install     - Install dependencies
+echo Available Services:
+echo   Frontend (React 19.1 + Bootstrap 5.3):
+echo     npm start       - Start React development server (Port 3000)
+echo     npm test        - Run React tests
+echo     npm run build   - Build React for production
 echo.
-echo Environment Variables: Loaded from shared .env
-echo Server URL: http://localhost:3000
+echo   Backend (FastAPI + SQLAlchemy):
+echo     uvicorn app.main:app --reload --port 8000
+echo     python -m pytest - Run Python tests
+echo.
+echo   Database Options:
+echo     SQLite    - Default development database
+echo     PostgreSQL - Production database (Port 5432)
+echo     MongoDB   - NoSQL database (Port 27017)
+echo.
+echo Environment: Loaded from shared .env
+echo Frontend URL: http://localhost:3000
+echo Backend API:  http://localhost:8000
+echo API Docs:    http://localhost:8000/docs
 echo.
 
-REM Navigate to the appropriate frontend directory
+REM Navigate to the appropriate directory
 if "%VERSION%"=="unknown" (
     echo [INFO] Run this script from project root or version directory
-    echo Usage: scripts\activate-react-env.bat
-    echo   or:  cd v1 ^&^& ..\scripts\activate-react-env.bat
+    echo Usage: scripts\activate-env.bat
+    echo   or:  cd v1 ^&^& ..\scripts\activate-env.bat
 ) else (
+    echo Available Commands for %VERSION%:
+    echo.
+    echo Frontend Development:
+    echo   cd %VERSION%\frontend ^&^& npm start
+    echo.
+    echo Backend Development:
+    echo   cd %VERSION%\backend ^&^& python -m uvicorn app.main:app --reload
+    echo.
+    echo Full Stack Development:
+    echo   1. Start Backend:  cd %VERSION%\backend ^&^& uvicorn app.main:app --reload
+    echo   2. Start Frontend: cd %VERSION%\frontend ^&^& npm start
+    echo.
+    
     if not "%CURRENT_DIR%"=="frontend" (
         if exist "%VERSION%\frontend" (
             echo Changing to %VERSION%\frontend directory...
@@ -49,8 +77,10 @@ if "%VERSION%"=="unknown" (
         )
     )
     
-    echo Ready for React development!
-    echo Type 'npm start' to begin development
+    echo Ready for full-stack development!
+    echo Choose your development mode:
+    echo   Type 'npm start' for frontend development
+    echo   Type 'cd ..\backend' for backend development
 )
 echo.
 echo To start development server: npm start

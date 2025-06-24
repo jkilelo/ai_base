@@ -1,0 +1,7 @@
+# AI Base Project v1 - Backend Requirements
+# Uses shared requirements from project root
+
+-r ../../shared/requirements/dev.txt
+
+# Version-specific dependencies
+# Add any v1-specific packages here

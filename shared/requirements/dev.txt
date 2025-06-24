@@ -1,0 +1,26 @@
+# AI Base Project - Development Python Requirements
+# Additional packages for development environment
+
+-r base.txt
+
+# =============================================================================
+# DEVELOPMENT TOOLS
+# =============================================================================
+# Code Formatting & Linting
+autopep8>=2.0.4
+pylint>=3.0.3
+bandit>=1.7.5
+
+# Documentation
+sphinx>=7.2.6
+sphinx-rtd-theme>=1.3.0
+
+# Debugging
+ipdb>=0.13.13
+rich>=13.7.0
+
+# Performance Monitoring
+memory-profiler>=0.61.0
+
+# Database Development
+sqlite-utils>=3.35.2
