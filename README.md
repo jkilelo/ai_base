@@ -9,41 +9,52 @@ ai_base/
 ├── frontend/                    # React.js Environment (like Python venv)
 │   ├── node_modules/           # Dependencies (isolated)
 │   ├── src/                    # React source code
+│   ├── craco.config.js         # Webpack configuration override
 │   ├── package.json            # Dependency management
-│   └── DEVELOPMENT.md          # Environment documentation
-├── activate-react-env.bat      # Windows activation script
-├── activate-react-env.ps1      # PowerShell activation script
+│   ├── .env                    # Environment variables
+│   └── README.md               # Frontend documentation
+├── test-webpack-fix.bat        # Webpack fix verification script
 ├── main.py                     # Python entry point (future)
 └── README.md                   # This file
 ```
 
-## Environment Setup
+## Quick Start
 
-### React.js Frontend Environment
-This project includes a complete React.js development environment that works similarly to Python's virtual environments:
+### Prerequisites
+- ✅ Node.js 22.16.0 LTS (installed)
+- ✅ npm 9.4.1 (included with Node.js)
+- ✅ Git (for version control)
 
-**Activation:**
+### Get Started in 30 Seconds
 ```bash
-# Windows Command Prompt
-activate-react-env.bat
-
-# PowerShell
-.\activate-react-env.ps1
-
-# Manual activation
 cd frontend
 npm start
 ```
+Open http://localhost:3000 - your React app is running! 🚀
 
-**Features:**
-- ✅ React 19.1.0 with TypeScript support
-- ✅ Node.js 22.16.0 LTS
-- ✅ Isolated dependencies in `node_modules/`
-- ✅ Development server on http://localhost:3000
-- ✅ Hot reloading and fast refresh
-- ✅ Built-in testing framework
-- ✅ Production build optimization
-- ✅ ESLint and TypeScript configuration
+## React Frontend Environment
+
+This project includes a complete React.js development environment that works similarly to Python's virtual environments:
+
+### Features
+- ✅ **React 19.1.0 with TypeScript support**
+- ✅ **Node.js 22.16.0 LTS**
+- ✅ **CRACO configuration for advanced webpack customization**
+- ✅ **Webpack-dev-server deprecation warnings FIXED**
+- ✅ **Isolated dependencies in `node_modules/`**
+- ✅ **Development server on http://localhost:3000**
+- ✅ **Hot reloading and fast refresh**
+- ✅ **Built-in testing framework**
+- ✅ **Production build optimization**
+- ✅ **ESLint and TypeScript configuration**
+
+### Available Commands
+```bash
+npm start              # Start development server (http://localhost:3000)
+npm test               # Run tests in watch mode
+npm run build          # Build for production
+npm install <package>  # Add new packages
+```
 
 ### Python Environment (Future)
 Space reserved for Python backend environment.
@@ -59,45 +70,36 @@ Space reserved for Python backend environment.
 | **Environment Isolation** | ✅                          | ✅                     |
 | **Version Lock**          | `pip freeze`               | `package-lock.json`   |
 
-## Getting Started
+## Webpack Deprecation Warnings - FIXED ✅
 
-### Prerequisites
-- Node.js 22.16.0 LTS (installed ✅)
-- npm 9.4.1 (included with Node.js ✅)
-- Git (for version control ✅)
+This project includes a complete fix for webpack-dev-server deprecation warnings that commonly appear in Create React App projects.
 
-### Quick Start
-1. **Activate React Environment:**
-   ```bash
-   cd frontend
-   npm start
-   ```
+### What was Fixed
 
-2. **Install New Packages:**
-   ```bash
-   npm install axios react-router-dom
-   ```
+- Eliminated `onAfterSetupMiddleware` and `onBeforeSetupMiddleware` deprecation warnings
+- Implemented modern `setupMiddlewares` API using CRACO configuration
+- Maintained all React development features (hot reload, TypeScript, etc.)
 
-3. **Run Tests:**
-   ```bash
-   npm test
-   ```
+### Technical Details
 
-4. **Build for Production:**
-   ```bash
-   npm run build
-   ```
+- **CRACO Configuration**: Uses `@craco/craco` to override webpack-dev-server config
+- **Modern API**: Implements `setupMiddlewares` instead of deprecated middleware options
+- **Environment Variables**: Added `.env` file for additional configuration
+- **Non-Intrusive**: No need to eject from Create React App
+
+### Files Involved
+
+- `frontend/craco.config.js` - Main webpack configuration override
+- `frontend/.env` - Environment variables and Node.js options
+- `frontend/package.json` - Scripts updated to use CRACO
+- `test-webpack-fix.bat` - Verification script
+
+For detailed technical implementation, see [`frontend/README.md`](frontend/README.md).
 
 ## Development Workflow
 
-### React Development
-1. Navigate to frontend directory
-2. Start development server: `npm start`
-3. Open http://localhost:3000 in browser
-4. Edit files in `src/` directory
-5. Changes auto-reload in browser
-
 ### Adding Dependencies
+
 ```bash
 # Runtime dependencies
 npm install axios react-router-dom styled-components
@@ -106,19 +108,22 @@ npm install axios react-router-dom styled-components
 npm install -D @types/styled-components eslint-plugin-react-hooks
 ```
 
-## Environment Variables
+### Environment Variables
 
 Create `.env` files for environment-specific configuration:
 
 **Frontend (.env):**
-```
+
+```env
 REACT_APP_API_URL=http://localhost:8000
 REACT_APP_ENVIRONMENT=development
+NODE_OPTIONS=--no-deprecation
 ```
 
 ## Git Integration
 
 The repository is initialized with appropriate `.gitignore` files:
+
 - `node_modules/` excluded from version control
 - Build artifacts ignored
 - Environment files template included
@@ -133,10 +138,12 @@ The repository is initialized with appropriate `.gitignore` files:
 
 ## Support
 
-See individual environment documentation:
-- [React Development Guide](frontend/DEVELOPMENT.md)
+For detailed development information, see:
+
+- [Frontend Development Guide](frontend/README.md)
 
 ## Version History
 
 - **v0.1.0** - Initial React environment setup with TypeScript
-- Node.js 22.16.0 LTS, React 19.1.0, TypeScript support
+- **v0.1.1** - Fixed webpack-dev-server deprecation warnings using CRACO
+- Node.js 22.16.0 LTS, React 19.1.0, TypeScript support, CRACO configuration
