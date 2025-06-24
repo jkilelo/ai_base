@@ -224,7 +224,9 @@ async def database_health(db: Session = Depends(get_database_session)):
     """
     try:
         # Test basic query
-        result = db.execute("SELECT 1 as test").fetchone()
+        from sqlalchemy import text
+
+        result = db.execute(text("SELECT 1 as test")).fetchone()
 
         # Get database info
         from ..core.database import get_database_info

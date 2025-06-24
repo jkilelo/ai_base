@@ -2,25 +2,28 @@
 # Centralized configuration management using Pydantic settings
 
 import os
-from typing import List, Optional
+from typing import List, Optional, Any
 from functools import lru_cache
 
 try:
-    from pydantic import BaseSettings, Field, validator
+    from pydantic_settings import BaseSettings
+    from pydantic import Field, field_validator, ConfigDict
 
-    PYDANTIC_V1 = True
+    PYDANTIC_V2 = True
 except ImportError:
     try:
-        from pydantic_settings import BaseSettings
-        from pydantic import Field, field_validator as validator
+        from pydantic import BaseSettings, Field, validator as field_validator
+        from pydantic import BaseSettings as PydanticBaseSettings
 
-        PYDANTIC_V1 = False
+        PYDANTIC_V2 = False
+        ConfigDict = None
     except ImportError:
         print("❌ Pydantic not available - please install dependencies")
         BaseSettings = object
         Field = lambda **kwargs: None
-        validator = lambda *args, **kwargs: lambda f: f
-        PYDANTIC_V1 = True
+        field_validator = lambda *args, **kwargs: lambda f: f
+        PYDANTIC_V2 = False
+        ConfigDict = None
 
 
 class Settings(BaseSettings):
@@ -127,64 +130,62 @@ class Settings(BaseSettings):
     # Development Configuration
     HOT_RELOAD: bool = Field(default=True, description="Enable hot reload")
     AUTO_RELOAD: bool = Field(default=True, description="Enable auto reload")
-    DEV_TOOLS: bool = Field(default=True, description="Enable development tools")
-
-    # Version Configuration
+    DEV_TOOLS: bool = Field(
+        default=True, description="Enable development tools"
+    )  # Version Configuration
     PROJECT_VERSION: str = Field(default="v1", description="Project version")
     PYTHON_VERSION: str = Field(default="3.12", description="Python version")
     NODE_ENV: str = Field(default="development", description="Node environment")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = True
+    # Pydantic v2 configuration
+    if PYDANTIC_V2:
+        model_config = ConfigDict(
+            env_file=".env",
+            env_file_encoding="utf-8",
+            case_sensitive=True,
+            extra="forbid",
+        )
+    else:
 
-        # Look for .env files in multiple locations
-        env_file_paths = [".env", "../.env", "../../.env", "../../../.env"]
+        class Config:
+            env_file = ".env"
+            env_file_encoding = "utf-8"
+            case_sensitive = True
+            # Look for .env files in multiple locations
+            env_file_paths = [
+                ".env",
+                "../.env",
+                "../../.env",
+                "../../../.env",
+            ] @ field_validator("CORS_ORIGINS", mode="before")
 
-    @validator("CORS_ORIGINS", pre=True)
+    @classmethod
     def parse_cors_origins(cls, v):
         """Parse CORS origins from string or list."""
         if isinstance(v, str):
             return [origin.strip() for origin in v.split(",")]
         return v
 
-    @validator("DATABASE_URL")
-    def validate_database_url(cls, v, values):
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def validate_database_url(cls, v):
         """Validate and construct database URL based on type."""
-        db_type = values.get("DATABASE_TYPE", "sqlite")
-
-        if db_type == "sqlite":
-            # Ensure SQLite path exists
-            if v.startswith("sqlite:///"):
-                db_path = v.replace("sqlite:///", "")
-                # Create directory if it doesn't exist
-                os.makedirs(os.path.dirname(db_path), exist_ok=True)
-            return v
-        elif db_type == "postgresql":
-            # Construct PostgreSQL URL from components
-            host = values.get("POSTGRES_HOST", "localhost")
-            port = values.get("POSTGRES_PORT", 5432)
-            db = values.get("POSTGRES_DB", "ai_base")
-            user = values.get("POSTGRES_USER", "ai_user")
-            password = values.get("POSTGRES_PASSWORD", "")
-
-            if password:
-                return f"postgresql://{user}:{password}@{host}:{port}/{db}"
-            else:
-                return f"postgresql://{user}@{host}:{port}/{db}"
-
+        # Simplified validation for Pydantic v2
+        if v.startswith("sqlite:///"):
+            db_path = v.replace("sqlite:///", "")
+            # Create directory if it doesn't exist
+            os.makedirs(os.path.dirname(db_path), exist_ok=True)
         return v
 
-    @validator("LOG_LEVEL")
+    @classmethod
     def validate_log_level(cls, v):
         """Validate log level."""
         valid_levels = ["debug", "info", "warning", "error", "critical"]
         if v.lower() not in valid_levels:
             raise ValueError(f"Log level must be one of: {valid_levels}")
-        return v.lower()
+        return v.lower() @ field_validator("ENVIRONMENT")
 
-    @validator("ENVIRONMENT")
+    @classmethod
     def validate_environment(cls, v):
         """Validate environment."""
         valid_envs = ["development", "staging", "production", "testing"]

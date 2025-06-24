@@ -91,12 +91,12 @@ async def startup_event():
         from .models import Base
 
         Base.metadata.create_all(bind=engine)
-        print("✅ Database tables created/verified")
-
-        # Verify database connection
+        print("✅ Database tables created/verified")  # Verify database connection
         db = SessionLocal()
         try:
-            db.execute("SELECT 1")
+            from sqlalchemy import text
+
+            db.execute(text("SELECT 1"))
             print("✅ Database connection verified")
         finally:
             db.close()
@@ -319,12 +319,13 @@ async def check_database() -> Dict[str, Any]:
     """Check database connectivity and status."""
     db_info = {}
 
-    try:
-        # Check database connection
+    try:  # Check database connection
         db = SessionLocal()
         try:
             # Test basic query
-            result = db.execute("SELECT 1 as test").fetchone()
+            from sqlalchemy import text
+
+            result = db.execute(text("SELECT 1 as test")).fetchone()
             db_info["connection"] = {
                 "status": "ok",
                 "message": "Database connection successful",
