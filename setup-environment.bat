@@ -78,11 +78,10 @@ for %%v in (v1 v2 v3) do (
         if not exist "%%v\backend\" mkdir "%%v\backend"
         if not exist "%%v\backend\app\" mkdir "%%v\backend\app"
         if not exist "%%v\tests\" mkdir "%%v\tests"
-        
-        REM Copy shared configurations if they don't exist
+          REM Copy shared configurations if they don't exist
         if not exist "%%v\frontend\tsconfig.json" (
-            if exist "config\tsconfig.json" (
-                copy "config\tsconfig.json" "%%v\frontend\tsconfig.json" >nul
+            if exist "config\tsconfig.template.json" (
+                copy "config\tsconfig.template.json" "%%v\frontend\tsconfig.json" >nul
             )
         )
         
@@ -110,31 +109,55 @@ echo [6/8] Installing Python dependencies...
 for %%v in (v1 v2 v3) do (
     if exist "%%v\backend\" (
         echo Installing Python packages for %%v...
-        cd %%v
+        cd %%v\backend
         
-        REM Create virtual environment if it doesn't exist
-        if not exist "venv\" (
-            echo Creating virtual environment for %%v...
-            python -m venv venv
-        )
-        
-        REM Activate virtual environment and install packages
-        if exist "venv\Scripts\activate.bat" (
-            call venv\Scripts\activate.bat
+        REM For v1, use UV; for v2/v3, use traditional venv
+        if "%%v"=="v1" (
+            echo Using UV for %%v setup...
             
-            REM Install from shared requirements
-            if exist "..\shared\requirements\dev.txt" (
-                pip install -r ..\shared\requirements\dev.txt
-                echo [✓] Installed development dependencies for %%v
-            ) else (
-                pip install fastapi uvicorn sqlalchemy alembic
-                echo [✓] Installed basic dependencies for %%v
+            REM Check if UV is installed
+            uv --version >nul 2>&1
+            if errorlevel 1 (
+                echo Installing UV...
+                python -m pip install uv
             )
             
-            deactivate
+            REM Create virtual environment with UV
+            if not exist ".venv\" (
+                echo Creating UV virtual environment for %%v...
+                uv venv --python 3.12
+            )
+            
+            REM Install dependencies with UV
+            if exist "requirements.txt" (
+                uv pip install -r requirements.txt
+                echo [✓] Installed dependencies with UV for %%v
+            )
+        ) else (
+            REM Traditional venv for v2/v3
+            if not exist "venv\" (
+                echo Creating virtual environment for %%v...
+                python -m venv venv
+            )
+            
+            REM Activate virtual environment and install packages
+            if exist "venv\Scripts\activate.bat" (
+                call venv\Scripts\activate.bat
+                
+                REM Install from shared requirements
+                if exist "..\..\shared\requirements\dev.txt" (
+                    pip install -r ..\..\shared\requirements\dev.txt
+                    echo [✓] Installed development dependencies for %%v
+                ) else (
+                    pip install fastapi uvicorn sqlalchemy alembic
+                    echo [✓] Installed basic dependencies for %%v
+                )
+                
+                deactivate
+            )
         )
         
-        cd ..
+        cd ..\..
     )
 )
 

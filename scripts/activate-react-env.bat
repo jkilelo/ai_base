@@ -56,17 +56,25 @@ if "%VERSION%"=="unknown" (
     echo [INFO] Run this script from project root or version directory
     echo Usage: scripts\activate-env.bat
     echo   or:  cd v1 ^&^& ..\scripts\activate-env.bat
-) else (
-    echo Available Commands for %VERSION%:
+) else (    echo Available Commands for %VERSION%:
     echo.
     echo Frontend Development:
     echo   cd %VERSION%\frontend ^&^& npm start
     echo.
-    echo Backend Development:
-    echo   cd %VERSION%\backend ^&^& python -m uvicorn app.main:app --reload
+    echo Backend Development (v1 - UV-based):
+    if "%VERSION%"=="v1" (
+        echo   cd %VERSION%\backend ^&^& start_backend.bat
+        echo   or: cd %VERSION%\backend ^&^& python start_dev_server.py
+    ) else (
+        echo   cd %VERSION%\backend ^&^& python -m uvicorn app.main:app --reload
+    )
     echo.
     echo Full Stack Development:
-    echo   1. Start Backend:  cd %VERSION%\backend ^&^& uvicorn app.main:app --reload
+    if "%VERSION%"=="v1" (
+        echo   1. Start Backend:  cd %VERSION%\backend ^&^& start_backend.bat
+    ) else (
+        echo   1. Start Backend:  cd %VERSION%\backend ^&^& uvicorn app.main:app --reload
+    )
     echo   2. Start Frontend: cd %VERSION%\frontend ^&^& npm start
     echo.
     

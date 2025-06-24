@@ -32,12 +32,12 @@
     }
   },
   "include": [
-    "src",
     "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "build",
-    "dist"
+    "dist",
+    "coverage"
   ]
 }
