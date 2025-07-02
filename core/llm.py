@@ -18,7 +18,16 @@ import asyncio
 import hashlib
 import json
 from datetime import datetime, timedelta
-import aioredis
+
+try:
+    import aioredis
+
+    REDIS_AVAILABLE = True
+except ImportError:
+    aioredis = None
+    REDIS_AVAILABLE = False
+    print("⚠️ aioredis not available - Redis caching disabled")
+
 from pydantic import BaseModel
 
 
@@ -229,6 +238,11 @@ class LLMManager:
 
     async def initialize(self):
         """Initialize the LLM manager"""
+        if not REDIS_AVAILABLE:
+            print("⚠️ Redis not available, caching disabled")
+            self._redis = None
+            return
+
         try:
             self._redis = await aioredis.from_url(self._redis_url)
         except Exception:

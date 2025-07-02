@@ -145,3 +145,46 @@ Thumbs.db
 *.cert
 secrets/
 .env.secret
+*.backup
+.env.backup
+
+# =============================================================================
+# PACKAGE MANAGERS & DEPENDENCIES
+# =============================================================================
+# UV package manager
+uv.lock
+.venv/
+
+# Poetry
+poetry.lock
+pyproject.toml.backup
+
+# =============================================================================
+# AI & ML MODELS
+# =============================================================================
+# Model files
+*.model
+*.pkl
+*.joblib
+models/
+checkpoints/
+
+# =============================================================================
+# DEVELOPMENT & DEBUGGING
+# =============================================================================
+# Code dumps and temporary files
+code*.txt
+*.dump
+debug_*
+scratch_*
+
+# =============================================================================
+# EXTRACTED CONTENT & GENERATED FILES
+# =============================================================================
+# Generated code examples
+utils/extracted_examples/
+utils/extracted_python/
+extraction_stats.json
+high_confidence.csv
+python_codes.json
+all_codes/

@@ -2,7 +2,7 @@
 # Centralized configuration management using Pydantic settings
 
 import os
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Union
 from functools import lru_cache
 
 try:
@@ -76,18 +76,18 @@ class Settings(BaseSettings):
     MONGODB_PASSWORD: str = Field(default="", description="MongoDB password")
 
     # CORS Configuration
-    CORS_ORIGINS: List[str] = Field(
-        default=["http://localhost:3000", "http://127.0.0.1:3000"],
-        description="Allowed CORS origins",
+    CORS_ORIGINS: Union[str, List[str]] = Field(
+        default="http://localhost:3000,http://127.0.0.1:3000",
+        description="Allowed CORS origins (comma-separated string or list)",
     )
     CORS_ALLOW_CREDENTIALS: bool = Field(
         default=True, description="Allow credentials in CORS"
     )
-    CORS_ALLOW_METHODS: List[str] = Field(
-        default=["*"], description="Allowed HTTP methods"
+    CORS_ALLOW_METHODS: Union[str, List[str]] = Field(
+        default="*", description="Allowed HTTP methods (comma-separated string or list)"
     )
-    CORS_ALLOW_HEADERS: List[str] = Field(
-        default=["*"], description="Allowed HTTP headers"
+    CORS_ALLOW_HEADERS: Union[str, List[str]] = Field(
+        default="*", description="Allowed HTTP headers (comma-separated string or list)"
     )
 
     # Security Configuration
@@ -143,7 +143,7 @@ class Settings(BaseSettings):
             env_file=".env",
             env_file_encoding="utf-8",
             case_sensitive=True,
-            extra="forbid",
+            extra="ignore",
         )
     else:
 
@@ -157,14 +157,43 @@ class Settings(BaseSettings):
                 "../.env",
                 "../../.env",
                 "../../../.env",
-            ] @ field_validator("CORS_ORIGINS", mode="before")
+            ]
 
+    @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def parse_cors_origins(cls, v):
         """Parse CORS origins from string or list."""
         if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",")]
-        return v
+            if not v or v.strip() == "":
+                return ["http://localhost:3000", "http://127.0.0.1:3000"]
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        elif isinstance(v, list):
+            return v
+        return ["http://localhost:3000", "http://127.0.0.1:3000"]
+
+    @field_validator("CORS_ALLOW_METHODS", mode="before")
+    @classmethod
+    def parse_cors_allow_methods(cls, v):
+        """Parse CORS allow methods from string or list."""
+        if isinstance(v, str):
+            if not v or v.strip() == "":
+                return ["*"]
+            return [method.strip() for method in v.split(",") if method.strip()]
+        elif isinstance(v, list):
+            return v
+        return ["*"]
+
+    @field_validator("CORS_ALLOW_HEADERS", mode="before")
+    @classmethod
+    def parse_cors_allow_headers(cls, v):
+        """Parse CORS allow headers from string or list."""
+        if isinstance(v, str):
+            if not v or v.strip() == "":
+                return ["*"]
+            return [header.strip() for header in v.split(",") if header.strip()]
+        elif isinstance(v, list):
+            return v
+        return ["*"]
 
     @field_validator("DATABASE_URL")
     @classmethod

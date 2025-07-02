@@ -7,7 +7,11 @@ import {
   Server, 
   BarChart3, 
   Settings,
-  HelpCircle
+  HelpCircle,
+  Plug,
+  Bot,
+  TestTube,
+  Globe
 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -22,7 +26,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange }) => 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
     { id: 'health', label: 'Health Status', icon: Activity },
-    { id: 'database', label: 'Database', icon: Database },
+    { id: 'plugins', label: 'Plugin Management', icon: Plug },
+    { id: 'llm', label: 'LLM Providers', icon: Bot },
+    { id: 'data-quality', label: 'Data Quality', icon: Database },
+    { id: 'web-testing', label: 'Web Testing', icon: Globe },
     { id: 'system', label: 'System Info', icon: Server },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'settings', label: 'Settings', icon: Settings },

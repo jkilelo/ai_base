@@ -8,6 +8,10 @@ import Sidebar from './components/Sidebar';
 import NotificationToast from './components/NotificationToast';
 import DashboardOverview from './components/sections/DashboardOverview';
 import HealthStatus from './components/sections/HealthStatus';
+import PluginManagement from './components/sections/PluginManagement';
+import LLMProviderManagement from './components/sections/LLMProviderManagement';
+import DataQualityApp from './components/sections/DataQualityApp';
+import WebTestingApp from './components/sections/WebTestingApp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -21,6 +25,14 @@ const AppContent: React.FC = () => {
         return <DashboardOverview />;
       case 'health':
         return <HealthStatus />;
+      case 'plugins':
+        return <PluginManagement />;
+      case 'llm':
+        return <LLMProviderManagement />;
+      case 'data-quality':
+        return <DataQualityApp />;
+      case 'web-testing':
+        return <WebTestingApp />;
       case 'database':
         return (
           <div className={isDark ? 'text-light' : 'text-dark'}>

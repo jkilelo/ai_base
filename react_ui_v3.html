@@ -1,0 +1,2844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Generator Portal v3 - Revolutionary Evolution</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQUkgQ29kZSBHZW5lcmF0b3IgUG9ydGFsIHYzIiwic2hvcnRfbmFtZSI6IkFJIENvZGVHZW4iLCJkZXNjcmlwdGlvbiI6IlJldm9sdXRpb25hcnkgQUkgQ29kZSBHZW5lcmF0aW9uIFBvcnRhbCB3aXRoIFJlYWwtdGltZSBQcm9ncmVzcyIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5IjoiZnVsbHNjcmVlbiIsInRoZW1lX2NvbG9yIjoiIzE0YjhhNiIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USXdJaUJvWldsbmFIUTlJakV5TUNJaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM04yWnlJK1BHTnBjbU5zWlNCamVEMGlOakFpSUdONVBTSTJNQ0lpSUhJOUlqUXdJaUJtYVd4c1BTSWpNVFJpT0dFMklpOCtQQzl6ZG1jKyIsInNpemVzIjoiMTIweDEyMCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-strong: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --neon-blue: #00d4ff;
+            --neon-purple: #b794f6;
+            --neon-green: #68d391;
+            --dark-surface: rgba(26, 32, 44, 0.8);
+            --shadow-neon: 0 0 30px rgba(0, 212, 255, 0.3);
+            --shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+        }
+
+        /* Revolutionary Header with Real-time Metrics */
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-elevated);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .header-title h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .performance-metrics {
+            display: flex;
+            gap: 16px;
+            background: var(--dark-surface);
+            padding: 12px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .connection-status-v3 {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--dark-surface);
+            padding: 16px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connection-status-v3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(104, 211, 145, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .connection-status-v3.connected::before {
+            left: 100%;
+            animation: sweep 2s infinite;
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .status-indicator-v3 {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green);
+            animation: pulse-neon 2s infinite;
+        }
+
+        @keyframes pulse-neon {
+            0%, 100% { 
+                box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px var(--neon-green), 0 0 60px var(--neon-green);
+                transform: scale(1.1);
+            }
+        }
+
+        .status-details-v3 {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .status-text-v3 {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .status-subtext {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Revolutionary Main Layout */
+        .main-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: var(--shadow-elevated);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .panel:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-elevated), var(--shadow-neon);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-title {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .panel-icon {
+            font-size: 28px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        /* Advanced Generation Matrix */
+        .generation-matrix-v3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .generation-option-v3 {
+            position: relative;
+            padding: 24px;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            background: var(--dark-surface);
+            overflow: hidden;
+        }
+
+        .generation-option-v3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, transparent, var(--neon-blue), transparent);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .generation-option-v3:hover::before,
+        .generation-option-v3.active::before {
+            opacity: 1;
+        }
+
+        .generation-option-v3:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .generation-option-v3.active {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(183, 148, 246, 0.1) 100%);
+            transform: scale(1.05);
+        }
+
+        .option-header-v3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .option-icon-v3 {
+            font-size: 32px;
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        .option-badge {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .option-title-v3 {
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .option-description-v3 {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .option-features-v3 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .feature-tag-v3 {
+            background: rgba(104, 211, 145, 0.2);
+            color: var(--neon-green);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            border: 1px solid rgba(104, 211, 145, 0.3);
+        }
+
+        /* Revolutionary Form System */
+        .form-container-v3 {
+            position: relative;
+        }
+
+        .form-group-v3 {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-label-v3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .label-icon-v3 {
+            font-size: 16px;
+            color: var(--neon-blue);
+        }
+
+        .form-input-v3, .form-textarea-v3, .form-select-v3 {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            background: var(--dark-surface);
+            color: #ffffff;
+            font-family: inherit;
+        }
+
+        .form-input-v3:focus, .form-textarea-v3:focus, .form-select-v3:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1), 0 0 30px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-input-v3::placeholder, .form-textarea-v3::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-textarea-v3 {
+            resize: vertical;
+            min-height: 140px;
+            line-height: 1.6;
+        }
+
+        .input-with-counter {
+            position: relative;
+        }
+
+        .character-count-v3 {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            background: var(--dark-surface);
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Advanced Progress System */
+        .progress-container-v3 {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--dark-surface);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .progress-container-v3.active {
+            display: block;
+            animation: slideInProgress 0.5s ease;
+        }
+
+        @keyframes slideInProgress {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-header-v3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-title-v3 {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .progress-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .progress-bar-container-v3 {
+            background: rgba(255, 255, 255, 0.1);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .progress-bar-v3 {
+            height: 100%;
+            background: var(--success-gradient);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar-v3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            animation: shimmer-v3 2s infinite;
+        }
+
+        @keyframes shimmer-v3 {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        .progress-phases-v3 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .progress-phase-v3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-phase-v3.active {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .progress-phase-v3.completed {
+            background: rgba(104, 211, 145, 0.1);
+            border-color: var(--neon-green);
+        }
+
+        .phase-icon-v3 {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            transition: var(--transition-smooth);
+        }
+
+        .progress-phase-v3.active .phase-icon-v3 {
+            color: var(--neon-blue);
+            animation: bounce 1s infinite;
+        }
+
+        .progress-phase-v3.completed .phase-icon-v3 {
+            color: var(--neon-green);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        .phase-label-v3 {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .progress-phase-v3.active .phase-label-v3 {
+            color: var(--neon-blue);
+        }
+
+        .progress-phase-v3.completed .phase-label-v3 {
+            color: var(--neon-green);
+        }
+
+        /* Revolutionary Button System */
+        .button-group-v3 {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn-v3 {
+            position: relative;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .btn-primary-v3 {
+            background: var(--success-gradient);
+            color: white;
+            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-primary-v3:hover:not(:disabled) {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.5);
+        }
+
+        .btn-primary-v3:disabled {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary-v3 {
+            background: var(--dark-surface);
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary-v3:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--neon-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(183, 148, 246, 0.2);
+        }
+
+        .btn-icon-v3 {
+            font-size: 18px;
+        }
+
+        /* Enhanced Results Panel */
+        .results-panel-v3 {
+            position: relative;
+        }
+
+        .results-tabs-v3 {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            background: var(--dark-surface);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .results-tab-v3 {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: inherit;
+        }
+
+        .results-tab-v3.active {
+            background: var(--success-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .results-content-v3 {
+            min-height: 500px;
+            position: relative;
+        }
+
+        .no-results-state-v3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 500px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .no-results-icon-v3 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .no-results-title-v3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .no-results-description-v3 {
+            font-size: 14px;
+            max-width: 400px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Advanced Code Display */
+        .code-result-v3 {
+            background: var(--dark-surface);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-header-v3 {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-language-v3 {
+            color: var(--neon-blue);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-actions-v3 {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-action-btn-v3 {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .code-action-btn-v3:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .code-content-v3 {
+            padding: 24px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #e2e8f0;
+            overflow-x: auto;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(0, 212, 255, 0.03) 100%);
+        }
+
+        /* WebSocket Status Indicator */
+        .websocket-status {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--dark-surface);
+            padding: 12px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .websocket-status.connected {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(104, 211, 145, 0.2);
+        }
+
+        .ws-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            animation: pulse-ws 2s infinite;
+        }
+
+        @keyframes pulse-ws {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Notification System v3 */
+        .notifications-container-v3 {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .notification-v3 {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-elevated);
+            border-left: 4px solid;
+            max-width: 400px;
+            pointer-events: all;
+            transform: translateX(100%);
+            animation: slideInNotification 0.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification-v3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .notification-v3:hover::before {
+            left: 100%;
+        }
+
+        .notification-v3.success { border-left-color: var(--neon-green); }
+        .notification-v3.error { border-left-color: #ff6b6b; }
+        .notification-v3.warning { border-left-color: #feca57; }
+        .notification-v3.info { border-left-color: var(--neon-blue); }
+
+        @keyframes slideInNotification {
+            to { transform: translateX(0); }
+        }
+
+        .notification-header-v3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .notification-icon-v3 {
+            font-size: 18px;
+        }
+
+        .notification-title-v3 {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .notification-message-v3 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .generation-matrix-v3 {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 16px;
+                gap: 20px;
+            }
+            
+            .panel {
+                padding: 24px;
+                border-radius: 24px;
+            }
+            
+            .button-group-v3 {
+                flex-direction: column;
+            }
+            
+            .btn-v3 {
+                justify-content: center;
+            }
+
+            .progress-phases-v3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid var(--neon-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Revolutionary Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>🚀 AI Code Generator Portal v3</h1>
+                    <div class="header-subtitle">Revolutionary Evolution with Real-time Intelligence</div>
+                </div>
+                
+                <div class="performance-metrics">
+                    <div class="metric">
+                        <div class="metric-value" id="successRate">98%</div>
+                        <div class="metric-label">Success Rate</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="avgTime">4.2s</div>
+                        <div class="metric-label">Avg Time</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="totalRequests">247</div>
+                        <div class="metric-label">Requests</div>
+                    </div>
+                </div>
+                
+                <div class="connection-status-v3" id="connectionStatusV3">
+                    <div class="status-indicator-v3" id="statusIndicatorV3"></div>
+                    <div class="status-details-v3">
+                        <div class="status-text-v3" id="statusTextV3">Initializing...</div>
+                        <div class="status-subtext" id="statusSubtext">Establishing connection</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Revolutionary Main Layout -->
+        <main class="main-layout">
+            <!-- Enhanced Generation Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <span class="panel-icon">🎯</span>
+                        Advanced Code Generation
+                    </h2>
+                </div>
+                
+                <!-- Revolutionary Generation Matrix -->
+                <div class="generation-matrix-v3" id="generationMatrixV3">
+                    <div class="generation-option-v3 active" data-type="direct">
+                        <div class="option-header-v3">
+                            <div class="option-icon-v3">⚡</div>
+                            <div class="option-badge">Instant</div>
+                        </div>
+                        <div class="option-title-v3">Direct Prompt</div>
+                        <div class="option-description-v3">Lightning-fast code generation with enhanced AI reasoning</div>
+                        <div class="option-features-v3">
+                            <span class="feature-tag-v3">Sub-second</span>
+                            <span class="feature-tag-v3">Smart Context</span>
+                            <span class="feature-tag-v3">Auto-optimize</span>
+                        </div>
+                    </div>
+                    
+                    <div class="generation-option-v3" data-type="quick">
+                        <div class="option-header-v3">
+                            <div class="option-icon-v3">🏃</div>
+                            <div class="option-badge">Rapid</div>
+                        </div>
+                        <div class="option-title-v3">Quick Generation</div>
+                        <div class="option-description-v3">Ultra-fast prototyping with intelligent defaults</div>
+                        <div class="option-features-v3">
+                            <span class="feature-tag-v3">2-3 seconds</span>
+                            <span class="feature-tag-v3">Smart defaults</span>
+                        </div>
+                    </div>
+                    
+                    <div class="generation-option-v3" data-type="structured">
+                        <div class="option-header-v3">
+                            <div class="option-icon-v3">🏗️</div>
+                            <div class="option-badge">Advanced</div>
+                        </div>
+                        <div class="option-title-v3">Structured Generation</div>
+                        <div class="option-description-v3">Enterprise-grade code with comprehensive architecture</div>
+                        <div class="option-features-v3">
+                            <span class="feature-tag-v3">Full-stack</span>
+                            <span class="feature-tag-v3">Architecture</span>
+                            <span class="feature-tag-v3">Documentation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="generation-option-v3" data-type="tree-of-thoughts">
+                        <div class="option-header-v3">
+                            <div class="option-icon-v3">🌳</div>
+                            <div class="option-badge">Revolutionary</div>
+                        </div>
+                        <div class="option-title-v3">Tree of Thoughts</div>
+                        <div class="option-description-v3">Multi-dimensional AI reasoning with real-time insights</div>
+                        <div class="option-features-v3">
+                            <span class="feature-tag-v3">Multi-path AI</span>
+                            <span class="feature-tag-v3">Live progress</span>
+                            <span class="feature-tag-v3">Breakthrough</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revolutionary Form System -->
+                <form id="generationFormV3" class="form-container-v3">
+                    <div id="formFieldsV3">
+                        <!-- Dynamic form fields will be inserted here -->
+                    </div>
+
+                    <!-- Advanced Progress System -->
+                    <div id="progressContainerV3" class="progress-container-v3">
+                        <div class="progress-header-v3">
+                            <div class="progress-title-v3" id="progressTitleV3">Initializing Generation</div>
+                            <div class="progress-stats">
+                                <div class="progress-stat">
+                                    <span>⏱️</span>
+                                    <span id="elapsedTime">0s</span>
+                                </div>
+                                <div class="progress-stat">
+                                    <span>📊</span>
+                                    <span id="progressPercentage">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container-v3">
+                            <div class="progress-bar-v3" id="progressBarV3" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-phases-v3">
+                            <div class="progress-phase-v3" id="phase-validation">
+                                <div class="phase-icon-v3">🔍</div>
+                                <div class="phase-label-v3">Validation</div>
+                            </div>
+                            <div class="progress-phase-v3" id="phase-processing">
+                                <div class="phase-icon-v3">⚙️</div>
+                                <div class="phase-label-v3">Processing</div>
+                            </div>
+                            <div class="progress-phase-v3" id="phase-generation">
+                                <div class="phase-icon-v3">🧠</div>
+                                <div class="phase-label-v3">Generation</div>
+                            </div>
+                            <div class="progress-phase-v3" id="phase-completion">
+                                <div class="phase-icon-v3">✅</div>
+                                <div class="phase-label-v3">Completion</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revolutionary Button System -->
+                    <div class="button-group-v3">
+                        <button type="submit" class="btn-v3 btn-primary-v3" id="generateBtnV3">
+                            <span class="btn-icon-v3">✨</span>
+                            <span id="generateBtnTextV3">Generate Code</span>
+                        </button>
+                        <button type="button" class="btn-v3 btn-secondary-v3" id="clearBtnV3">
+                            <span class="btn-icon-v3">🧹</span>
+                            Clear Form
+                        </button>
+                        <button type="button" class="btn-v3 btn-secondary-v3" id="exportBtnV3" style="display: none;">
+                            <span class="btn-icon-v3">💾</span>
+                            Export Results
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Enhanced Results Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <span class="panel-icon">📄</span>
+                        Generated Results
+                    </h2>
+                </div>
+                
+                <div class="results-panel-v3">
+                    <!-- Results Navigation -->
+                    <div class="results-tabs-v3">
+                        <button class="results-tab-v3 active" data-tab="current">Current</button>
+                        <button class="results-tab-v3" data-tab="history">History</button>
+                        <button class="results-tab-v3" data-tab="compare">Compare</button>
+                    </div>
+
+                    <!-- Results Content -->
+                    <div class="results-content-v3">
+                        <!-- No Results State -->
+                        <div id="noResultsStateV3" class="no-results-state-v3">
+                            <div class="no-results-icon-v3">🚀</div>
+                            <div class="no-results-title-v3">Ready for Revolutionary Generation</div>
+                            <div class="no-results-description-v3">
+                                Configure your advanced generation options and experience the future of AI-powered code creation with real-time progress and intelligent insights
+                            </div>
+                        </div>
+
+                        <!-- Results Display -->
+                        <div id="resultsDisplayV3" style="display: none;">
+                            <!-- Dynamic results will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- WebSocket Status -->
+    <div class="websocket-status" id="websocketStatus">
+        <div class="ws-indicator" id="wsIndicator"></div>
+        <span id="wsStatusText">Real-time Connection</span>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notificationsContainerV3" class="notifications-container-v3"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // ==================== REVOLUTIONARY API CLIENT V3 ====================
+        class RevolutionaryAICodeGeneratorAPI {
+            constructor() {
+                this.baseURL = 'http://localhost:8000';
+                this.cache = new Map();
+                this.requestQueue = [];
+                this.isProcessingQueue = false;
+                this.retryAttempts = new Map();
+                this.healthCheckInterval = null;
+                this.connectionListeners = [];
+                this.currentRequests = new Map();
+                this.requestDeduplication = new Map();
+                this.circuitBreaker = {
+                    failures: 0,
+                    maxFailures: 5,
+                    isOpen: false,
+                    nextAttempt: null
+                };
+                this.performanceMetrics = {
+                    totalRequests: 0,
+                    successfulRequests: 0,
+                    averageResponseTime: 0,
+                    responseTimes: []
+                };
+                this.websocket = null;
+                this.websocketReconnectAttempts = 0;
+                this.maxWebSocketReconnectAttempts = 5;
+            }
+
+            // Circuit Breaker Pattern
+            canMakeRequest() {
+                if (!this.circuitBreaker.isOpen) return true;
+                
+                if (Date.now() > this.circuitBreaker.nextAttempt) {
+                    this.circuitBreaker.isOpen = false;
+                    this.circuitBreaker.failures = 0;
+                    return true;
+                }
+                
+                return false;
+            }
+
+            recordFailure() {
+                this.circuitBreaker.failures++;
+                if (this.circuitBreaker.failures >= this.circuitBreaker.maxFailures) {
+                    this.circuitBreaker.isOpen = true;
+                    this.circuitBreaker.nextAttempt = Date.now() + (30 * 1000); // 30 second timeout
+                }
+            }
+
+            recordSuccess() {
+                this.circuitBreaker.failures = 0;
+                this.circuitBreaker.isOpen = false;
+            }
+
+            // Request Deduplication
+            getDedupKey(endpoint, options) {
+                return `${endpoint}-${JSON.stringify(options?.body || {})}`;
+            }
+
+            async makeRequestWithDedup(endpoint, options = {}, retries = 3) {
+                const dedupKey = this.getDedupKey(endpoint, options);
+                
+                // Check if identical request is already in progress
+                if (this.requestDeduplication.has(dedupKey)) {
+                    return this.requestDeduplication.get(dedupKey);
+                }
+
+                // Create new request promise
+                const requestPromise = this.makeRequest(endpoint, options, retries);
+                this.requestDeduplication.set(dedupKey, requestPromise);
+
+                try {
+                    const result = await requestPromise;
+                    return result;
+                } finally {
+                    // Clean up after request completes
+                    setTimeout(() => {
+                        this.requestDeduplication.delete(dedupKey);
+                    }, 1000); // Keep dedup for 1 second to prevent rapid duplicates
+                }
+            }
+
+            // Enhanced Request Method with Performance Tracking
+            async makeRequest(endpoint, options = {}, retries = 3, skipCircuitBreaker = false) {
+                if (!skipCircuitBreaker && !this.canMakeRequest()) {
+                    throw new Error('Circuit breaker is open. Please try again later.');
+                }
+
+                const startTime = performance.now();
+                const requestId = Math.random().toString(36).substr(2, 9);
+                
+                this.currentRequests.set(requestId, {
+                    endpoint,
+                    startTime,
+                    options: { ...options }
+                });
+
+                try {
+                    const timeoutDuration = this.getTimeoutForEndpoint(endpoint);
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), timeoutDuration);
+
+                    // Check cache first
+                    const cacheKey = `${endpoint}-${JSON.stringify(options.body || {})}`;
+                    if (this.cache.has(cacheKey) && endpoint !== '/health') {
+                        const cached = this.cache.get(cacheKey);
+                        if (Date.now() - cached.timestamp < cached.ttl) {
+                            return cached.data;
+                        }
+                    }
+
+                    const response = await fetch(`${this.baseURL}${endpoint}`, {
+                        method: options.method || 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...options.headers
+                        },
+                        body: options.body ? JSON.stringify(options.body) : undefined,
+                        signal: controller.signal
+                    });
+
+                    clearTimeout(timeoutId);
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.detail || `HTTP ${response.status}: ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    // Cache successful responses
+                    if (response.ok && endpoint !== '/health') {
+                        this.cache.set(cacheKey, {
+                            data,
+                            timestamp: Date.now(),
+                            ttl: 5 * 60 * 1000 // 5 minutes
+                        });
+                    }
+
+                    // Record performance metrics
+                    const responseTime = performance.now() - startTime;
+                    this.updatePerformanceMetrics(responseTime, true);
+                    this.recordSuccess();
+
+                    return data;
+
+                } catch (error) {
+                    const responseTime = performance.now() - startTime;
+                    this.updatePerformanceMetrics(responseTime, false);
+                    
+                    if (retries > 0 && !error.name === 'AbortError') {
+                        const delay = Math.pow(2, 3 - retries) * 1000; // Exponential backoff
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return this.makeRequest(endpoint, options, retries - 1, true);
+                    }
+
+                    this.recordFailure();
+                    throw error;
+                } finally {
+                    this.currentRequests.delete(requestId);
+                }
+            }
+
+            // Performance Metrics Tracking
+            updatePerformanceMetrics(responseTime, success) {
+                this.performanceMetrics.totalRequests++;
+                if (success) {
+                    this.performanceMetrics.successfulRequests++;
+                }
+
+                this.performanceMetrics.responseTimes.push(responseTime);
+                if (this.performanceMetrics.responseTimes.length > 100) {
+                    this.performanceMetrics.responseTimes.shift(); // Keep last 100 measurements
+                }
+
+                this.performanceMetrics.averageResponseTime = 
+                    this.performanceMetrics.responseTimes.reduce((a, b) => a + b, 0) / 
+                    this.performanceMetrics.responseTimes.length;
+
+                // Update UI metrics
+                this.updateUIMetrics();
+            }
+
+            updateUIMetrics() {
+                const successRate = Math.round(
+                    (this.performanceMetrics.successfulRequests / this.performanceMetrics.totalRequests) * 100
+                );
+                const avgTime = (this.performanceMetrics.averageResponseTime / 1000).toFixed(1);
+
+                document.getElementById('successRate').textContent = `${successRate}%`;
+                document.getElementById('avgTime').textContent = `${avgTime}s`;
+                document.getElementById('totalRequests').textContent = this.performanceMetrics.totalRequests;
+            }
+
+            // WebSocket Integration for Real-time Progress
+            initWebSocket() {
+                if (this.websocket?.readyState === WebSocket.OPEN) return;
+
+                try {
+                    this.websocket = new WebSocket('ws://localhost:8000/ws');
+                    
+                    this.websocket.onopen = () => {
+                        this.websocketReconnectAttempts = 0;
+                        this.updateWebSocketStatus('connected');
+                        console.log('WebSocket connected for real-time progress');
+                    };
+
+                    this.websocket.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            this.handleWebSocketMessage(data);
+                        } catch (e) {
+                            console.error('Failed to parse WebSocket message:', e);
+                        }
+                    };
+
+                    this.websocket.onclose = () => {
+                        this.updateWebSocketStatus('disconnected');
+                        this.attemptWebSocketReconnect();
+                    };
+
+                    this.websocket.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                        this.updateWebSocketStatus('error');
+                    };
+
+                } catch (error) {
+                    console.error('Failed to initialize WebSocket:', error);
+                    this.updateWebSocketStatus('error');
+                }
+            }
+
+            attemptWebSocketReconnect() {
+                if (this.websocketReconnectAttempts >= this.maxWebSocketReconnectAttempts) {
+                    console.log('Max WebSocket reconnection attempts reached');
+                    return;
+                }
+
+                this.websocketReconnectAttempts++;
+                const delay = Math.pow(2, this.websocketReconnectAttempts) * 1000;
+                
+                setTimeout(() => {
+                    console.log(`Attempting WebSocket reconnection (${this.websocketReconnectAttempts}/${this.maxWebSocketReconnectAttempts})`);
+                    this.initWebSocket();
+                }, delay);
+            }
+
+            updateWebSocketStatus(status) {
+                const wsStatus = document.getElementById('wsStatusText');
+                const wsIndicator = document.getElementById('wsIndicator');
+                const wsContainer = document.getElementById('websocketStatus');
+
+                switch (status) {
+                    case 'connected':
+                        wsStatus.textContent = 'Real-time Connected';
+                        wsContainer.classList.add('connected');
+                        wsIndicator.style.background = 'var(--neon-green)';
+                        break;
+                    case 'disconnected':
+                        wsStatus.textContent = 'Real-time Disconnected';
+                        wsContainer.classList.remove('connected');
+                        wsIndicator.style.background = '#ff6b6b';
+                        break;
+                    case 'error':
+                        wsStatus.textContent = 'Real-time Error';
+                        wsContainer.classList.remove('connected');
+                        wsIndicator.style.background = '#feca57';
+                        break;
+                }
+            }
+
+            handleWebSocketMessage(data) {
+                switch (data.type) {
+                    case 'progress':
+                        this.updateRealTimeProgress(data);
+                        break;
+                    case 'intermediate_result':
+                        this.showIntermediateResult(data);
+                        break;
+                    case 'completion':
+                        this.handleGenerationComplete(data);
+                        break;
+                    default:
+                        console.log('Unknown WebSocket message type:', data.type);
+                }
+            }
+
+            updateRealTimeProgress(data) {
+                const { phase, percentage, message, elapsed_time } = data;
+                
+                // Update progress bar
+                const progressBar = document.getElementById('progressBarV3');
+                const progressPercentage = document.getElementById('progressPercentage');
+                const elapsedTime = document.getElementById('elapsedTime');
+                const progressTitle = document.getElementById('progressTitleV3');
+
+                if (progressBar) progressBar.style.width = `${percentage}%`;
+                if (progressPercentage) progressPercentage.textContent = `${percentage}%`;
+                if (elapsedTime) elapsedTime.textContent = `${elapsed_time}s`;
+                if (progressTitle) progressTitle.textContent = message || 'Processing...';
+
+                // Update phase indicators
+                this.updatePhaseIndicators(phase);
+            }
+
+            updatePhaseIndicators(currentPhase) {
+                const phases = ['validation', 'processing', 'generation', 'completion'];
+                const currentIndex = phases.indexOf(currentPhase);
+
+                phases.forEach((phase, index) => {
+                    const element = document.getElementById(`phase-${phase}`);
+                    if (element) {
+                        element.classList.remove('active', 'completed');
+                        if (index < currentIndex) {
+                            element.classList.add('completed');
+                        } else if (index === currentIndex) {
+                            element.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            // Enhanced timeout configuration
+            getTimeoutForEndpoint(endpoint) {
+                const timeouts = {
+                    '/health': 5000,
+                    '/generate/direct': 15000,
+                    '/generate/quick': 10000,
+                    '/generate/structured': 30000,
+                    '/generate/tree-of-thoughts': 60000,
+                    '/languages': 5000,
+                    '/enums': 5000
+                };
+
+                return timeouts[endpoint] || 20000;
+            }
+
+            // Connection Management
+            addConnectionListener(callback) {
+                this.connectionListeners.push(callback);
+            }
+
+            notifyConnectionChange(status, details) {
+                this.connectionListeners.forEach(callback => {
+                    try {
+                        callback(status, details);
+                    } catch (error) {
+                        console.error('Error in connection listener:', error);
+                    }
+                });
+            }
+
+            // Enhanced Health Monitoring
+            async startHealthMonitoring() {
+                // Initial health check
+                await this.checkHealth();
+
+                this.healthCheckInterval = setInterval(async () => {
+                    try {
+                        const response = await this.makeRequest('/health', {}, 1, true);
+                        this.notifyConnectionChange('connected', {
+                            version: response.version,
+                            timestamp: response.timestamp,
+                            uptime: response.uptime
+                        });
+                    } catch (error) {
+                        this.notifyConnectionChange('disconnected', {
+                            error: error.message,
+                            timestamp: new Date().toISOString()
+                        });
+                    }
+                }, 10000); // Check every 10 seconds
+            }
+
+            async checkHealth() {
+                try {
+                    const response = await this.makeRequest('/health', {}, 1, true);
+                    return response;
+                } catch (error) {
+                    throw new Error(`Health check failed: ${error.message}`);
+                }
+            }
+
+            // Cache Management
+            clearCache() {
+                this.cache.clear();
+                this.requestDeduplication.clear();
+            }
+
+            getCacheStats() {
+                return {
+                    size: this.cache.size,
+                    dedupSize: this.requestDeduplication.size,
+                    hitRate: 0 // Would need to track hits vs misses
+                };
+            }
+
+            // Cleanup
+            destroy() {
+                if (this.healthCheckInterval) {
+                    clearInterval(this.healthCheckInterval);
+                }
+                
+                if (this.websocket) {
+                    this.websocket.close();
+                }
+
+                this.currentRequests.forEach((request, id) => {
+                    // Cancel any ongoing requests
+                    console.log(`Cancelling request ${id}: ${request.endpoint}`);
+                });
+
+                this.clearCache();
+                this.connectionListeners = [];
+            }
+        }
+
+        // ==================== ADVANCED STATE MANAGEMENT V3 ====================
+        class AdvancedStateManager {
+            constructor() {
+                this.state = {
+                    currentGenerationType: 'direct',
+                    isGenerating: false,
+                    apiStatus: 'disconnected',
+                    generationHistory: this.loadFromStorage('generationHistory', []),
+                    currentResults: null,
+                    formData: this.loadFromStorage('formData', {}),
+                    preferences: this.loadFromStorage('preferences', {
+                        theme: 'dark',
+                        autoSave: true,
+                        notifications: true
+                    }),
+                    performance: {
+                        sessionStartTime: Date.now(),
+                        totalGenerations: 0,
+                        successfulGenerations: 0
+                    }
+                };
+                
+                this.listeners = new Map();
+                this.undoStack = [];
+                this.redoStack = [];
+                this.maxUndoSteps = 50;
+                
+                // Auto-save interval
+                if (this.state.preferences.autoSave) {
+                    this.autoSaveInterval = setInterval(() => {
+                        this.saveToStorage();
+                    }, 30000); // Save every 30 seconds
+                }
+            }
+
+            // State Management
+            getState() {
+                return { ...this.state };
+            }
+
+            setState(updates, trackHistory = true) {
+                if (trackHistory) {
+                    this.undoStack.push({ ...this.state });
+                    if (this.undoStack.length > this.maxUndoSteps) {
+                        this.undoStack.shift();
+                    }
+                    this.redoStack = []; // Clear redo stack on new action
+                }
+
+                this.state = { ...this.state, ...updates };
+                this.notifyListeners(updates);
+                
+                if (this.state.preferences.autoSave) {
+                    this.saveToStorage();
+                }
+            }
+
+            // Undo/Redo
+            undo() {
+                if (this.undoStack.length > 0) {
+                    this.redoStack.push({ ...this.state });
+                    this.state = this.undoStack.pop();
+                    this.notifyListeners(this.state);
+                    return true;
+                }
+                return false;
+            }
+
+            redo() {
+                if (this.redoStack.length > 0) {
+                    this.undoStack.push({ ...this.state });
+                    this.state = this.redoStack.pop();
+                    this.notifyListeners(this.state);
+                    return true;
+                }
+                return false;
+            }
+
+            // Listeners
+            subscribe(key, callback) {
+                if (!this.listeners.has(key)) {
+                    this.listeners.set(key, []);
+                }
+                this.listeners.get(key).push(callback);
+                
+                // Return unsubscribe function
+                return () => {
+                    const callbacks = this.listeners.get(key);
+                    if (callbacks) {
+                        const index = callbacks.indexOf(callback);
+                        if (index > -1) {
+                            callbacks.splice(index, 1);
+                        }
+                    }
+                };
+            }
+
+            notifyListeners(updates) {
+                Object.keys(updates).forEach(key => {
+                    const callbacks = this.listeners.get(key);
+                    if (callbacks) {
+                        callbacks.forEach(callback => {
+                            try {
+                                callback(updates[key], this.state);
+                            } catch (error) {
+                                console.error(`Error in state listener for ${key}:`, error);
+                            }
+                        });
+                    }
+                });
+
+                // Notify global listeners
+                const globalCallbacks = this.listeners.get('*');
+                if (globalCallbacks) {
+                    globalCallbacks.forEach(callback => {
+                        try {
+                            callback(updates, this.state);
+                        } catch (error) {
+                            console.error('Error in global state listener:', error);
+                        }
+                    });
+                }
+            }
+
+            // Persistence
+            saveToStorage() {
+                try {
+                    const persistentData = {
+                        generationHistory: this.state.generationHistory,
+                        formData: this.state.formData,
+                        preferences: this.state.preferences
+                    };
+                    
+                    Object.keys(persistentData).forEach(key => {
+                        localStorage.setItem(`aiCodeGen_${key}`, JSON.stringify(persistentData[key]));
+                    });
+                } catch (error) {
+                    console.error('Failed to save to localStorage:', error);
+                }
+            }
+
+            loadFromStorage(key, defaultValue) {
+                try {
+                    const stored = localStorage.getItem(`aiCodeGen_${key}`);
+                    return stored ? JSON.parse(stored) : defaultValue;
+                } catch (error) {
+                    console.error(`Failed to load ${key} from localStorage:`, error);
+                    return defaultValue;
+                }
+            }
+
+            // Generation History Management
+            addToHistory(generation) {
+                const historyEntry = {
+                    id: Math.random().toString(36).substr(2, 9),
+                    timestamp: Date.now(),
+                    type: generation.type,
+                    prompt: generation.prompt,
+                    language: generation.language,
+                    result: generation.result,
+                    metadata: generation.metadata
+                };
+
+                const history = [...this.state.generationHistory, historyEntry];
+                
+                // Keep only last 100 generations
+                if (history.length > 100) {
+                    history.splice(0, history.length - 100);
+                }
+
+                this.setState({ generationHistory: history });
+                return historyEntry.id;
+            }
+
+            removeFromHistory(id) {
+                const history = this.state.generationHistory.filter(item => item.id !== id);
+                this.setState({ generationHistory: history });
+            }
+
+            clearHistory() {
+                this.setState({ generationHistory: [] });
+            }
+
+            // Cleanup
+            destroy() {
+                if (this.autoSaveInterval) {
+                    clearInterval(this.autoSaveInterval);
+                }
+                this.saveToStorage();
+                this.listeners.clear();
+            }
+        }
+
+        // ==================== REVOLUTIONARY UI CONTROLLER V3 ====================
+        class RevolutionaryUIController {
+            constructor() {
+                this.api = new RevolutionaryAICodeGeneratorAPI();
+                this.stateManager = new AdvancedStateManager();
+                this.currentFormConfig = null;
+                this.notificationQueue = [];
+                this.isProcessingNotifications = false;
+                
+                this.init();
+            }
+
+            async init() {
+                try {
+                    // Initialize API connection
+                    await this.api.startHealthMonitoring();
+                    this.api.initWebSocket();
+                    
+                    // Setup connection status listener
+                    this.api.addConnectionListener((status, details) => {
+                        this.updateConnectionStatus(status, details);
+                    });
+
+                    // Setup state subscriptions
+                    this.setupStateSubscriptions();
+                    
+                    // Initialize UI
+                    this.initializeUI();
+                    
+                    // Setup event listeners
+                    this.setupEventListeners();
+                    
+                    // Load initial form configuration
+                    await this.loadFormConfiguration('direct');
+                    
+                    this.showNotification('success', 'System Ready', 'Revolutionary AI Code Generator Portal v3 is now online');
+                    
+                } catch (error) {
+                    console.error('Failed to initialize UI Controller:', error);
+                    this.showNotification('error', 'Initialization Failed', error.message);
+                }
+            }
+
+            setupStateSubscriptions() {
+                // Subscribe to generation state changes
+                this.stateManager.subscribe('isGenerating', (isGenerating) => {
+                    this.updateGeneratingState(isGenerating);
+                });
+
+                // Subscribe to form data changes
+                this.stateManager.subscribe('formData', (formData) => {
+                    this.updateFormData(formData);
+                });
+
+                // Subscribe to current results changes
+                this.stateManager.subscribe('currentResults', (results) => {
+                    this.updateResultsDisplay(results);
+                });
+            }
+
+            initializeUI() {
+                // Set initial generation type
+                const initialType = this.stateManager.getState().currentGenerationType;
+                this.selectGenerationType(initialType);
+                
+                // Update performance metrics
+                this.api.updateUIMetrics();
+                
+                // Initialize tabs
+                this.initializeTabs();
+            }
+
+            setupEventListeners() {
+                // Generation type selection
+                document.querySelectorAll('.generation-option-v3').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        const type = e.currentTarget.dataset.type;
+                        this.selectGenerationType(type);
+                    });
+                });
+
+                // Form submission
+                const form = document.getElementById('generationFormV3');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleGeneration();
+                    });
+                }
+
+                // Clear button
+                const clearBtn = document.getElementById('clearBtnV3');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        this.clearForm();
+                    });
+                }
+
+                // Export button
+                const exportBtn = document.getElementById('exportBtnV3');
+                if (exportBtn) {
+                    exportBtn.addEventListener('click', () => {
+                        this.exportResults();
+                    });
+                }
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    this.handleKeyboardShortcuts(e);
+                });
+
+                // Tab switching
+                document.querySelectorAll('.results-tab-v3').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const tabType = e.target.dataset.tab;
+                        this.switchResultsTab(tabType);
+                    });
+                });
+
+                // Window unload cleanup
+                window.addEventListener('beforeunload', () => {
+                    this.cleanup();
+                });
+            }
+
+            async selectGenerationType(type) {
+                // Update UI
+                document.querySelectorAll('.generation-option-v3').forEach(option => {
+                    option.classList.remove('active');
+                });
+                
+                const selectedOption = document.querySelector(`.generation-option-v3[data-type="${type}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('active');
+                }
+
+                // Update state
+                this.stateManager.setState({ currentGenerationType: type });
+
+                // Load form configuration
+                await this.loadFormConfiguration(type);
+
+                this.showNotification('info', 'Mode Selected', `Switched to ${type} generation mode`);
+            }
+
+            async loadFormConfiguration(type) {
+                const configs = {
+                    direct: {
+                        fields: [
+                            {
+                                type: 'textarea',
+                                name: 'prompt',
+                                label: 'Code Prompt',
+                                placeholder: 'Describe the code you want to generate...',
+                                required: true,
+                                maxLength: 2000,
+                                icon: '💭'
+                            },
+                            {
+                                type: 'select',
+                                name: 'language',
+                                label: 'Programming Language',
+                                options: ['python', 'javascript', 'typescript', 'java', 'cpp', 'go', 'rust'],
+                                required: true,
+                                icon: '🔧'
+                            }
+                        ]
+                    },
+                    quick: {
+                        fields: [
+                            {
+                                type: 'input',
+                                name: 'prompt',
+                                label: 'Quick Prompt',
+                                placeholder: 'Quick code description...',
+                                required: true,
+                                maxLength: 500,
+                                icon: '⚡'
+                            },
+                            {
+                                type: 'select',
+                                name: 'language',
+                                label: 'Language',
+                                options: ['python', 'javascript', 'typescript'],
+                                required: true,
+                                icon: '🔧'
+                            }
+                        ]
+                    },
+                    structured: {
+                        fields: [
+                            {
+                                type: 'textarea',
+                                name: 'requirements',
+                                label: 'Requirements',
+                                placeholder: 'Detailed requirements for your project...',
+                                required: true,
+                                maxLength: 5000,
+                                icon: '📋'
+                            },
+                            {
+                                type: 'select',
+                                name: 'language',
+                                label: 'Primary Language',
+                                options: ['python', 'javascript', 'typescript', 'java', 'cpp', 'go', 'rust'],
+                                required: true,
+                                icon: '🔧'
+                            },
+                            {
+                                type: 'select',
+                                name: 'framework',
+                                label: 'Framework/Library',
+                                options: ['none', 'react', 'vue', 'angular', 'fastapi', 'flask', 'django', 'express'],
+                                required: false,
+                                icon: '🏗️'
+                            },
+                            {
+                                type: 'checkbox',
+                                name: 'include_tests',
+                                label: 'Include Tests',
+                                checked: true,
+                                icon: '🧪'
+                            },
+                            {
+                                type: 'checkbox',
+                                name: 'include_docs',
+                                label: 'Include Documentation',
+                                checked: true,
+                                icon: '📚'
+                            }
+                        ]
+                    },
+                    'tree-of-thoughts': {
+                        fields: [
+                            {
+                                type: 'textarea',
+                                name: 'problem_description',
+                                label: 'Problem Description',
+                                placeholder: 'Describe the complex problem you want to solve...',
+                                required: true,
+                                maxLength: 3000,
+                                icon: '🌳'
+                            },
+                            {
+                                type: 'select',
+                                name: 'language',
+                                label: 'Programming Language',
+                                options: ['python', 'javascript', 'typescript', 'java', 'cpp', 'go', 'rust'],
+                                required: true,
+                                icon: '🔧'
+                            },
+                            {
+                                type: 'select',
+                                name: 'thinking_depth',
+                                label: 'Thinking Depth',
+                                options: ['shallow', 'medium', 'deep', 'exhaustive'],
+                                required: true,
+                                icon: '🧠'
+                            },
+                            {
+                                type: 'checkbox',
+                                name: 'show_reasoning',
+                                label: 'Show AI Reasoning Process',
+                                checked: true,
+                                icon: '🔍'
+                            }
+                        ]
+                    }
+                };
+
+                this.currentFormConfig = configs[type];
+                this.renderForm();
+            }
+
+            renderForm() {
+                const container = document.getElementById('formFieldsV3');
+                if (!container || !this.currentFormConfig) return;
+
+                const formData = this.stateManager.getState().formData;
+                let html = '';
+
+                this.currentFormConfig.fields.forEach(field => {
+                    const value = formData[field.name] || '';
+                    const fieldId = `field_${field.name}`;
+
+                    html += `<div class="form-group-v3">`;
+                    html += `<label for="${fieldId}" class="form-label-v3">`;
+                    html += `<span class="label-icon-v3">${field.icon}</span>`;
+                    html += `${field.label}`;
+                    if (field.required) {
+                        html += `<span class="required-indicator">*</span>`;
+                    }
+                    html += `</label>`;
+
+                    switch (field.type) {
+                        case 'textarea':
+                            html += `<div class="input-with-counter">`;
+                            html += `<textarea 
+                                id="${fieldId}" 
+                                name="${field.name}" 
+                                class="form-textarea-v3" 
+                                placeholder="${field.placeholder}"
+                                ${field.required ? 'required' : ''}
+                                ${field.maxLength ? `maxlength="${field.maxLength}"` : ''}
+                            >${value}</textarea>`;
+                            if (field.maxLength) {
+                                html += `<div class="character-count-v3" id="count_${field.name}">0/${field.maxLength}</div>`;
+                            }
+                            html += `</div>`;
+                            break;
+
+                        case 'input':
+                            html += `<input 
+                                id="${fieldId}" 
+                                name="${field.name}" 
+                                type="text" 
+                                class="form-input-v3" 
+                                placeholder="${field.placeholder}"
+                                value="${value}"
+                                ${field.required ? 'required' : ''}
+                                ${field.maxLength ? `maxlength="${field.maxLength}"` : ''}
+                            >`;
+                            break;
+
+                        case 'select':
+                            html += `<select id="${fieldId}" name="${field.name}" class="form-select-v3" ${field.required ? 'required' : ''}>`;
+                            if (!field.required) {
+                                html += `<option value="">-- Select ${field.label} --</option>`;
+                            }
+                            field.options.forEach(option => {
+                                const selected = value === option ? 'selected' : '';
+                                html += `<option value="${option}" ${selected}>${option}</option>`;
+                            });
+                            html += `</select>`;
+                            break;
+
+                        case 'checkbox':
+                            const checked = value === true || field.checked ? 'checked' : '';
+                            html += `<label class="checkbox-container">`;
+                            html += `<input 
+                                id="${fieldId}" 
+                                name="${field.name}" 
+                                type="checkbox" 
+                                ${checked}
+                            >`;
+                            html += `<span class="checkmark"></span>`;
+                            html += `</label>`;
+                            break;
+                    }
+
+                    html += `</div>`;
+                });
+
+                container.innerHTML = html;
+
+                // Setup form field event listeners
+                this.setupFormFieldListeners();
+            }
+
+            setupFormFieldListeners() {
+                const container = document.getElementById('formFieldsV3');
+                if (!container) return;
+
+                // Add change listeners to all form fields
+                container.querySelectorAll('input, textarea, select').forEach(field => {
+                    field.addEventListener('input', (e) => {
+                        this.handleFormFieldChange(e);
+                    });
+
+                    field.addEventListener('change', (e) => {
+                        this.handleFormFieldChange(e);
+                    });
+                });
+
+                // Setup character counters
+                container.querySelectorAll('textarea[maxlength]').forEach(textarea => {
+                    const counter = document.getElementById(`count_${textarea.name}`);
+                    if (counter) {
+                        const updateCounter = () => {
+                            const current = textarea.value.length;
+                            const max = textarea.maxLength;
+                            counter.textContent = `${current}/${max}`;
+                            
+                            if (current > max * 0.9) {
+                                counter.style.color = '#ff6b6b';
+                            } else if (current > max * 0.7) {
+                                counter.style.color = '#feca57';
+                            } else {
+                                counter.style.color = 'rgba(255, 255, 255, 0.5)';
+                            }
+                        };
+
+                        textarea.addEventListener('input', updateCounter);
+                        updateCounter(); // Initial update
+                    }
+                });
+            }
+
+            handleFormFieldChange(event) {
+                const { name, value, type, checked } = event.target;
+                const fieldValue = type === 'checkbox' ? checked : value;
+
+                const currentFormData = this.stateManager.getState().formData;
+                const updatedFormData = {
+                    ...currentFormData,
+                    [name]: fieldValue
+                };
+
+                this.stateManager.setState({ formData: updatedFormData });
+            }
+
+            async handleGeneration() {
+                try {
+                    // Validate form
+                    if (!this.validateForm()) {
+                        return;
+                    }
+
+                    // Get form data
+                    const formData = this.collectFormData();
+                    const generationType = this.stateManager.getState().currentGenerationType;
+
+                    // Update UI to generating state
+                    this.stateManager.setState({ isGenerating: true });
+                    this.showProgressContainer();
+
+                    // Start generation
+                    const startTime = Date.now();
+                    const result = await this.api.makeRequestWithDedup(`/generate/${generationType}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const endTime = Date.now();
+                    const duration = (endTime - startTime) / 1000;
+
+                    // Update state with results
+                    this.stateManager.setState({ 
+                        currentResults: {
+                            ...result,
+                            generationType,
+                            formData,
+                            duration,
+                            timestamp: endTime
+                        },
+                        isGenerating: false 
+                    });
+
+                    // Add to history
+                    this.stateManager.addToHistory({
+                        type: generationType,
+                        prompt: formData.prompt || formData.requirements || formData.problem_description,
+                        language: formData.language,
+                        result: result,
+                        metadata: {
+                            duration,
+                            timestamp: endTime
+                        }
+                    });
+
+                    this.hideProgressContainer();
+                    this.showNotification('success', 'Generation Complete', `Code generated successfully in ${duration.toFixed(1)}s`);
+
+                } catch (error) {
+                    console.error('Generation failed:', error);
+                    this.stateManager.setState({ isGenerating: false });
+                    this.hideProgressContainer();
+                    this.showNotification('error', 'Generation Failed', error.message);
+                }
+            }
+
+            validateForm() {
+                const container = document.getElementById('formFieldsV3');
+                if (!container) return false;
+
+                const requiredFields = container.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = '#ff6b6b';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (!isValid) {
+                    this.showNotification('warning', 'Validation Error', 'Please fill in all required fields');
+                }
+
+                return isValid;
+            }
+
+            collectFormData() {
+                const container = document.getElementById('formFieldsV3');
+                if (!container) return {};
+
+                const formData = {};
+                const fields = container.querySelectorAll('input, textarea, select');
+
+                fields.forEach(field => {
+                    if (field.type === 'checkbox') {
+                        formData[field.name] = field.checked;
+                    } else {
+                        formData[field.name] = field.value;
+                    }
+                });
+
+                return formData;
+            }
+
+            showProgressContainer() {
+                const container = document.getElementById('progressContainerV3');
+                if (container) {
+                    container.classList.add('active');
+                    this.startProgressSimulation();
+                }
+            }
+
+            hideProgressContainer() {
+                const container = document.getElementById('progressContainerV3');
+                if (container) {
+                    container.classList.remove('active');
+                    this.stopProgressSimulation();
+                }
+            }
+
+            startProgressSimulation() {
+                // This would be replaced by real WebSocket progress updates
+                let progress = 0;
+                const phases = ['validation', 'processing', 'generation', 'completion'];
+                let currentPhaseIndex = 0;
+
+                this.progressInterval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 100) progress = 100;
+
+                    // Update phase
+                    const phaseProgress = progress / 25;
+                    const newPhaseIndex = Math.min(Math.floor(phaseProgress), 3);
+                    
+                    if (newPhaseIndex !== currentPhaseIndex) {
+                        currentPhaseIndex = newPhaseIndex;
+                        this.api.updatePhaseIndicators(phases[currentPhaseIndex]);
+                    }
+
+                    // Update progress bar
+                    const progressBar = document.getElementById('progressBarV3');
+                    const progressPercentage = document.getElementById('progressPercentage');
+                    
+                    if (progressBar) progressBar.style.width = `${progress}%`;
+                    if (progressPercentage) progressPercentage.textContent = `${Math.round(progress)}%`;
+
+                    if (progress >= 100) {
+                        this.stopProgressSimulation();
+                    }
+                }, 200);
+            }
+
+            stopProgressSimulation() {
+                if (this.progressInterval) {
+                    clearInterval(this.progressInterval);
+                    this.progressInterval = null;
+                }
+            }
+
+            updateGeneratingState(isGenerating) {
+                const generateBtn = document.getElementById('generateBtnV3');
+                const generateBtnText = document.getElementById('generateBtnTextV3');
+
+                if (generateBtn && generateBtnText) {
+                    if (isGenerating) {
+                        generateBtn.disabled = true;
+                        generateBtnText.textContent = 'Generating...';
+                        generateBtn.querySelector('.btn-icon-v3').textContent = '⏳';
+                    } else {
+                        generateBtn.disabled = false;
+                        generateBtnText.textContent = 'Generate Code';
+                        generateBtn.querySelector('.btn-icon-v3').textContent = '✨';
+                    }
+                }
+            }
+
+            updateConnectionStatus(status, details) {
+                const statusIndicator = document.getElementById('statusIndicatorV3');
+                const statusText = document.getElementById('statusTextV3');
+                const statusSubtext = document.getElementById('statusSubtext');
+                const connectionContainer = document.getElementById('connectionStatusV3');
+
+                if (!statusIndicator || !statusText || !statusSubtext || !connectionContainer) return;
+
+                switch (status) {
+                    case 'connected':
+                        statusIndicator.className = 'status-indicator-v3';
+                        statusText.textContent = 'Connected';
+                        statusSubtext.textContent = `API v${details.version || 'Unknown'}`;
+                        connectionContainer.classList.add('connected');
+                        break;
+                    case 'disconnected':
+                        statusIndicator.className = 'status-indicator-v3';
+                        statusIndicator.style.background = '#ff6b6b';
+                        statusText.textContent = 'Disconnected';
+                        statusSubtext.textContent = 'Retrying connection...';
+                        connectionContainer.classList.remove('connected');
+                        break;
+                    case 'connecting':
+                        statusIndicator.className = 'status-indicator-v3';
+                        statusIndicator.style.background = '#feca57';
+                        statusText.textContent = 'Connecting';
+                        statusSubtext.textContent = 'Please wait...';
+                        connectionContainer.classList.remove('connected');
+                        break;
+                }
+
+                this.stateManager.setState({ apiStatus: status });
+            }
+
+            updateResultsDisplay(results) {
+                const noResultsState = document.getElementById('noResultsStateV3');
+                const resultsDisplay = document.getElementById('resultsDisplayV3');
+                const exportBtn = document.getElementById('exportBtnV3');
+
+                if (!results) {
+                    if (noResultsState) noResultsState.style.display = 'flex';
+                    if (resultsDisplay) resultsDisplay.style.display = 'none';
+                    if (exportBtn) exportBtn.style.display = 'none';
+                    return;
+                }
+
+                if (noResultsState) noResultsState.style.display = 'none';
+                if (resultsDisplay) resultsDisplay.style.display = 'block';
+                if (exportBtn) exportBtn.style.display = 'flex';
+
+                this.renderResults(results);
+            }
+
+            renderResults(results) {
+                const container = document.getElementById('resultsDisplayV3');
+                if (!container) return;
+
+                let html = '';
+
+                if (results.generated_code) {
+                    html += `
+                        <div class="code-result-v3">
+                            <div class="code-header-v3">
+                                <div class="code-language-v3">${results.language || 'Code'}</div>
+                                <div class="code-actions-v3">
+                                    <button class="code-action-btn-v3" onclick="app.copyToClipboard('${results.generated_code.replace(/'/g, "\\'")}')">
+                                        📋 Copy
+                                    </button>
+                                    <button class="code-action-btn-v3" onclick="app.downloadCode('${results.language || 'code'}', '${results.generated_code.replace(/'/g, "\\'")}')">
+                                        💾 Download
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="code-content-v3">${this.escapeHtml(results.generated_code)}</div>
+                        </div>
+                    `;
+                }
+
+                if (results.explanation) {
+                    html += `
+                        <div class="result-section">
+                            <h3>📝 Explanation</h3>
+                            <p>${this.escapeHtml(results.explanation)}</p>
+                        </div>
+                    `;
+                }
+
+                // Add metadata
+                html += `
+                    <div class="result-metadata">
+                        <div class="metadata-grid">
+                            <div class="metadata-item">
+                                <div class="metadata-label">Generated</div>
+                                <div class="metadata-value">${new Date(results.timestamp).toLocaleString()}</div>
+                            </div>
+                            <div class="metadata-item">
+                                <div class="metadata-label">Duration</div>
+                                <div class="metadata-value">${results.duration?.toFixed(1)}s</div>
+                            </div>
+                            <div class="metadata-item">
+                                <div class="metadata-label">Type</div>
+                                <div class="metadata-value">${results.generationType}</div>
+                            </div>
+                            <div class="metadata-item">
+                                <div class="metadata-label">Language</div>
+                                <div class="metadata-value">${results.formData?.language || 'N/A'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            }
+
+            initializeTabs() {
+                const tabs = document.querySelectorAll('.results-tab-v3');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        const tabType = e.target.dataset.tab;
+                        this.switchResultsTab(tabType);
+                    });
+                });
+            }
+
+            switchResultsTab(tabType) {
+                // Update tab UI
+                document.querySelectorAll('.results-tab-v3').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                const activeTab = document.querySelector(`.results-tab-v3[data-tab="${tabType}"]`);
+                if (activeTab) {
+                    activeTab.classList.add('active');
+                }
+
+                // Handle tab content
+                switch (tabType) {
+                    case 'current':
+                        this.showCurrentResults();
+                        break;
+                    case 'history':
+                        this.showGenerationHistory();
+                        break;
+                    case 'compare':
+                        this.showResultsComparison();
+                        break;
+                }
+            }
+
+            showCurrentResults() {
+                const results = this.stateManager.getState().currentResults;
+                this.updateResultsDisplay(results);
+            }
+
+            showGenerationHistory() {
+                const history = this.stateManager.getState().generationHistory;
+                const container = document.getElementById('resultsDisplayV3');
+                
+                if (!container) return;
+
+                if (history.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-results-state-v3">
+                            <div class="no-results-icon-v3">📚</div>
+                            <div class="no-results-title-v3">No History Yet</div>
+                            <div class="no-results-description-v3">
+                                Your generation history will appear here after you create some code
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '<div class="history-list">';
+                history.reverse().forEach(item => {
+                    html += `
+                        <div class="history-item" onclick="app.loadHistoryItem('${item.id}')">
+                            <div class="history-header">
+                                <div class="history-type">${item.type}</div>
+                                <div class="history-date">${new Date(item.timestamp).toLocaleDateString()}</div>
+                            </div>
+                            <div class="history-prompt">${this.truncateText(item.prompt, 100)}</div>
+                            <div class="history-language">${item.language}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                container.innerHTML = html;
+            }
+
+            showResultsComparison() {
+                const container = document.getElementById('resultsDisplayV3');
+                if (!container) return;
+
+                container.innerHTML = `
+                    <div class="no-results-state-v3">
+                        <div class="no-results-icon-v3">⚖️</div>
+                        <div class="no-results-title-v3">Results Comparison</div>
+                        <div class="no-results-description-v3">
+                            Side-by-side comparison feature coming soon. Generate multiple results to compare them.
+                        </div>
+                    </div>
+                `;
+            }
+
+            clearForm() {
+                const container = document.getElementById('formFieldsV3');
+                if (!container) return;
+
+                container.querySelectorAll('input, textarea, select').forEach(field => {
+                    if (field.type === 'checkbox') {
+                        field.checked = false;
+                    } else {
+                        field.value = '';
+                    }
+                });
+
+                this.stateManager.setState({ formData: {} });
+                this.showNotification('info', 'Form Cleared', 'All form fields have been reset');
+            }
+
+            exportResults() {
+                const results = this.stateManager.getState().currentResults;
+                if (!results) {
+                    this.showNotification('warning', 'No Results', 'No results to export');
+                    return;
+                }
+
+                const exportData = {
+                    timestamp: new Date().toISOString(),
+                    version: '3.0',
+                    results: results
+                };
+
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `ai-code-generation-${Date.now()}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                this.showNotification('success', 'Export Complete', 'Results exported successfully');
+            }
+
+            copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    this.showNotification('success', 'Copied', 'Code copied to clipboard');
+                }).catch(() => {
+                    this.showNotification('error', 'Copy Failed', 'Failed to copy to clipboard');
+                });
+            }
+
+            downloadCode(language, code) {
+                const extensions = {
+                    python: 'py',
+                    javascript: 'js',
+                    typescript: 'ts',
+                    java: 'java',
+                    cpp: 'cpp',
+                    go: 'go',
+                    rust: 'rs'
+                };
+
+                const extension = extensions[language] || 'txt';
+                const blob = new Blob([code], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `generated-code.${extension}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                this.showNotification('success', 'Download Complete', 'Code file downloaded');
+            }
+
+            handleKeyboardShortcuts(event) {
+                // Ctrl/Cmd + Enter to generate
+                if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                    event.preventDefault();
+                    if (!this.stateManager.getState().isGenerating) {
+                        this.handleGeneration();
+                    }
+                }
+
+                // Ctrl/Cmd + Z to undo
+                if ((event.ctrlKey || event.metaKey) && event.key === 'z' && !event.shiftKey) {
+                    event.preventDefault();
+                    const success = this.stateManager.undo();
+                    if (success) {
+                        this.showNotification('info', 'Undo', 'Action undone');
+                    }
+                }
+
+                // Ctrl/Cmd + Shift + Z to redo
+                if ((event.ctrlKey || event.metaKey) && event.key === 'z' && event.shiftKey) {
+                    event.preventDefault();
+                    const success = this.stateManager.redo();
+                    if (success) {
+                        this.showNotification('info', 'Redo', 'Action redone');
+                    }
+                }
+
+                // Escape to clear form
+                if (event.key === 'Escape') {
+                    this.clearForm();
+                }
+            }
+
+            showNotification(type, title, message) {
+                const notification = {
+                    id: Math.random().toString(36).substr(2, 9),
+                    type,
+                    title,
+                    message,
+                    timestamp: Date.now()
+                };
+
+                this.notificationQueue.push(notification);
+                
+                if (!this.isProcessingNotifications) {
+                    this.processNotificationQueue();
+                }
+            }
+
+            async processNotificationQueue() {
+                this.isProcessingNotifications = true;
+
+                while (this.notificationQueue.length > 0) {
+                    const notification = this.notificationQueue.shift();
+                    await this.displayNotification(notification);
+                    await new Promise(resolve => setTimeout(resolve, 300)); // Delay between notifications
+                }
+
+                this.isProcessingNotifications = false;
+            }
+
+            displayNotification(notification) {
+                return new Promise(resolve => {
+                    const container = document.getElementById('notificationsContainerV3');
+                    if (!container) {
+                        resolve();
+                        return;
+                    }
+
+                    const icons = {
+                        success: '✅',
+                        error: '❌',
+                        warning: '⚠️',
+                        info: '💡'
+                    };
+
+                    const notificationEl = document.createElement('div');
+                    notificationEl.className = `notification-v3 ${notification.type}`;
+                    notificationEl.innerHTML = `
+                        <div class="notification-header-v3">
+                            <span class="notification-icon-v3">${icons[notification.type]}</span>
+                            <span class="notification-title-v3">${notification.title}</span>
+                        </div>
+                        <div class="notification-message-v3">${notification.message}</div>
+                    `;
+
+                    container.appendChild(notificationEl);
+
+                    // Auto-remove after 5 seconds
+                    setTimeout(() => {
+                        if (notificationEl.parentNode) {
+                            notificationEl.style.transform = 'translateX(100%)';
+                            setTimeout(() => {
+                                if (notificationEl.parentNode) {
+                                    notificationEl.parentNode.removeChild(notificationEl);
+                                }
+                            }, 300);
+                        }
+                    }, 5000);
+
+                    resolve();
+                });
+            }
+
+            // Utility methods
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            truncateText(text, maxLength) {
+                if (text.length <= maxLength) return text;
+                return text.substring(0, maxLength) + '...';
+            }
+
+            cleanup() {
+                if (this.api) {
+                    this.api.destroy();
+                }
+                
+                if (this.stateManager) {
+                    this.stateManager.destroy();
+                }
+
+                if (this.progressInterval) {
+                    clearInterval(this.progressInterval);
+                }
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        let app;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            app = new RevolutionaryUIController();
+        });
+
+        // Global app reference for inline event handlers
+        window.app = app;
+
+        // Service Worker Registration for PWA features
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed');
+                    });
+            });
+        }
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (app) {
+                app.cleanup();
+            }
+        });
+    </script>
+</body>
+</html>

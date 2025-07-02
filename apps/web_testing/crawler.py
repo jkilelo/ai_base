@@ -1415,3 +1415,4 @@ class AdvancedWebCrawler:
 
         except Exception:
             return []
+

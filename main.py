@@ -7,6 +7,7 @@ allowing dynamic loading of AI-powered applications.
 
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 from pathlib import Path
 import os
@@ -14,7 +15,7 @@ from typing import Dict, Any
 
 # Import existing modules
 from v1.backend.app.core.config import get_settings
-from v1.backend.app.core.database import get_db, engine
+from v1.backend.app.core.database import get_database_session
 from v1.backend.app.api.health import router as health_router
 
 # Import new core modules
@@ -115,7 +116,7 @@ app.add_middleware(
 )
 
 # Include existing health router
-app.include_router(health_router, prefix="/api/v1/health", tags=["health"])
+app.include_router(health_router, prefix="/api/v1", tags=["health"])
 
 
 # Enhanced health endpoint with plugin status
@@ -231,19 +232,22 @@ async def root():
 # Error handlers
 @app.exception_handler(404)
 async def not_found_handler(request, exc):
-    return {
-        "error": "Not found",
-        "message": "The requested resource was not found",
-        "available_endpoints": [
-            "/api/v1/health",
-            "/api/v1/plugins",
-            "/api/v1/llm/providers",
-            "/docs",
-        ],
-    }
+    return JSONResponse(
+        status_code=404,
+        content={
+            "error": "Not found",
+            "message": "The requested resource was not found",
+            "available_endpoints": [
+                "/api/v1/health",
+                "/api/v1/plugins",
+                "/api/v1/llm/providers",
+                "/docs",
+            ],
+        },
+    )
 
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="info")
+    uvicorn.run("main:app", host="localhost", port=8001, reload=True, log_level="info")
